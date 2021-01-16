@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A46C25B2E1E9008E2319 /* AppDelegate.swift */; };
 		3697A46F25B2E1E9008E2319 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A46E25B2E1E9008E2319 /* SceneDelegate.swift */; };
-		3697A47125B2E1E9008E2319 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A47025B2E1E9008E2319 /* ViewController.swift */; };
-		3697A47425B2E1E9008E2319 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3697A47225B2E1E9008E2319 /* Main.storyboard */; };
+		3697A47125B2E1E9008E2319 /* CarRentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A47025B2E1E9008E2319 /* CarRentViewController.swift */; };
 		3697A47625B2E1ED008E2319 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3697A47525B2E1ED008E2319 /* Assets.xcassets */; };
 		3697A47925B2E1ED008E2319 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3697A47725B2E1ED008E2319 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,8 +18,7 @@
 		3697A46925B2E1E9008E2319 /* CarRent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3697A46C25B2E1E9008E2319 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3697A46E25B2E1E9008E2319 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3697A47025B2E1E9008E2319 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3697A47325B2E1E9008E2319 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3697A47025B2E1E9008E2319 /* CarRentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentViewController.swift; sourceTree = "<group>"; };
 		3697A47525B2E1ED008E2319 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3697A47825B2E1ED008E2319 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3697A47A25B2E1ED008E2319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,22 @@
 		3697A46B25B2E1E9008E2319 /* CarRent */ = {
 			isa = PBXGroup;
 			children = (
+				3697A48225B2E28D008E2319 /* Controllers */,
 				3697A46C25B2E1E9008E2319 /* AppDelegate.swift */,
 				3697A46E25B2E1E9008E2319 /* SceneDelegate.swift */,
-				3697A47025B2E1E9008E2319 /* ViewController.swift */,
-				3697A47225B2E1E9008E2319 /* Main.storyboard */,
 				3697A47525B2E1ED008E2319 /* Assets.xcassets */,
 				3697A47725B2E1ED008E2319 /* LaunchScreen.storyboard */,
 				3697A47A25B2E1ED008E2319 /* Info.plist */,
 			);
 			path = CarRent;
+			sourceTree = "<group>";
+		};
+		3697A48225B2E28D008E2319 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3697A47025B2E1E9008E2319 /* CarRentViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +131,6 @@
 			files = (
 				3697A47925B2E1ED008E2319 /* LaunchScreen.storyboard in Resources */,
 				3697A47625B2E1ED008E2319 /* Assets.xcassets in Resources */,
-				3697A47425B2E1E9008E2319 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3697A47125B2E1E9008E2319 /* ViewController.swift in Sources */,
+				3697A47125B2E1E9008E2319 /* CarRentViewController.swift in Sources */,
 				3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */,
 				3697A46F25B2E1E9008E2319 /* SceneDelegate.swift in Sources */,
 			);
@@ -146,14 +150,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3697A47225B2E1E9008E2319 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3697A47325B2E1E9008E2319 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3697A47725B2E1ED008E2319 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

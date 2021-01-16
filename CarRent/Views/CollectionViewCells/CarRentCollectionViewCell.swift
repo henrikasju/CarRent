@@ -22,6 +22,8 @@ class CarRentCollectionViewCell: UICollectionViewCell {
 
   let verticalStackView = UIStackView()
 
+  var imageViewHeightContraint: NSLayoutConstraint?
+
   override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -42,13 +44,22 @@ class CarRentCollectionViewCell: UICollectionViewCell {
     verticalStackView.distribution = .fill
     verticalStackView.spacing = 1
 
-    carImageView.height(200).heightEqualsWidth()
+    imageViewHeightContraint = carImageView.Height == 175
+    carImageView.left(0).right(0)
+    carImageView.contentMode = .scaleAspectFit
+    carImageView.tintColor = .gray
+
+
     carNameLabel.backgroundColor = .red
+    carDistanceLabel.textColor = .black
+    carPlaneNumberLabel.textColor = .black
+    carRemainingBattery.textColor = .black
+
     carPlaneNumberLabel.backgroundColor = .cyan
 
 
-    self.backgroundColor = .red
-    verticalStackView.backgroundColor = .green
+//    self.backgroundColor = .red
+//    verticalStackView.backgroundColor = .green
   }
 
   required init?(coder: NSCoder) {

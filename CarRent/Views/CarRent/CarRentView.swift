@@ -11,6 +11,7 @@ import Stevia
 class CarRentView: UIView {
 
   let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+  var collectionViewBottomConstraint: NSLayoutConstraint?
 
   convenience init() {
     self.init(frame: .zero)
@@ -24,9 +25,10 @@ class CarRentView: UIView {
     collectionView.Top == safeAreaLayoutGuide.Top
     collectionView.Left == safeAreaLayoutGuide.Left
     collectionView.Right == safeAreaLayoutGuide.Right
-    collectionView.Bottom == safeAreaLayoutGuide.Bottom
+    collectionViewBottomConstraint = collectionView.Bottom == safeAreaLayoutGuide.Bottom
 
     collectionView.backgroundColor = .clear
+    collectionView.showsVerticalScrollIndicator = false
 
     print(bounds.width,bounds.height)
   }

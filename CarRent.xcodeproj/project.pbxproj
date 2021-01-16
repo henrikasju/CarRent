@@ -16,6 +16,8 @@
 		3697A48B25B2E993008E2319 /* CarRentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A48A25B2E993008E2319 /* CarRentView.swift */; };
 		3697A49025B2F47A008E2319 /* CarRentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A48F25B2F47A008E2319 /* CarRentCollectionViewCell.swift */; };
 		3697A49625B30EAE008E2319 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A49525B30EAE008E2319 /* Alamofire */; };
+		3697A49A25B30FAD008E2319 /* RentalCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A49925B30FAD008E2319 /* RentalCar.swift */; };
+		3697A49F25B3348A008E2319 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A49E25B3348A008E2319 /* AlamofireImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,7 @@
 		3697A47A25B2E1ED008E2319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3697A48A25B2E993008E2319 /* CarRentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentView.swift; sourceTree = "<group>"; };
 		3697A48F25B2F47A008E2319 /* CarRentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentCollectionViewCell.swift; sourceTree = "<group>"; };
+		3697A49925B30FAD008E2319 /* RentalCar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalCar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +40,7 @@
 			files = (
 				3697A48625B2E902008E2319 /* Stevia in Frameworks */,
 				3697A49625B30EAE008E2319 /* Alamofire in Frameworks */,
+				3697A49F25B3348A008E2319 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +66,7 @@
 		3697A46B25B2E1E9008E2319 /* CarRent */ = {
 			isa = PBXGroup;
 			children = (
+				3697A49825B30F79008E2319 /* Models */,
 				3697A48825B2E95D008E2319 /* Views */,
 				3697A48225B2E28D008E2319 /* Controllers */,
 				3697A46C25B2E1E9008E2319 /* AppDelegate.swift */,
@@ -106,6 +111,14 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
+		3697A49825B30F79008E2319 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3697A49925B30FAD008E2319 /* RentalCar.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -125,6 +138,7 @@
 			packageProductDependencies = (
 				3697A48525B2E902008E2319 /* Stevia */,
 				3697A49525B30EAE008E2319 /* Alamofire */,
+				3697A49E25B3348A008E2319 /* AlamofireImage */,
 			);
 			productName = CarRent;
 			productReference = 3697A46925B2E1E9008E2319 /* CarRent.app */;
@@ -156,6 +170,7 @@
 			packageReferences = (
 				3697A48425B2E902008E2319 /* XCRemoteSwiftPackageReference "Stevia" */,
 				3697A49425B30EAE008E2319 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				3697A49D25B3348A008E2319 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 3697A46A25B2E1E9008E2319 /* Products */;
 			projectDirPath = "";
@@ -183,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3697A49A25B30FAD008E2319 /* RentalCar.swift in Sources */,
 				3697A49025B2F47A008E2319 /* CarRentCollectionViewCell.swift in Sources */,
 				3697A47125B2E1E9008E2319 /* CarRentViewController.swift in Sources */,
 				3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */,
@@ -399,6 +415,14 @@
 				minimumVersion = 5.4.1;
 			};
 		};
+		3697A49D25B3348A008E2319 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -411,6 +435,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3697A49425B30EAE008E2319 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		3697A49E25B3348A008E2319 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3697A49D25B3348A008E2319 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

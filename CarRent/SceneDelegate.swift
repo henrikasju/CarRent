@@ -19,9 +19,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let rootVC = CarRentViewController()
     let navigationController = UINavigationController(rootViewController: rootVC)
 
+    setupNavigationBarAppearance()
+
     window?.rootViewController = navigationController
     window?.makeKeyAndVisible()
 
+  }
+
+  func setupNavigationBarAppearance() {
+    let appearance = UINavigationBarAppearance()
+    appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = .clear
+    appearance.titleTextAttributes = [
+      .foregroundColor: UIColor.black,
+      .font: UIFont.systemFont(ofSize: 28, weight: .semibold)
+    ]
+
+    UINavigationBar.appearance().standardAppearance = appearance
+    UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    UINavigationBar.appearance().compactAppearance = appearance
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {

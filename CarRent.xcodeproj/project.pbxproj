@@ -14,6 +14,8 @@
 		3697A47925B2E1ED008E2319 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3697A47725B2E1ED008E2319 /* LaunchScreen.storyboard */; };
 		3697A48625B2E902008E2319 /* Stevia in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A48525B2E902008E2319 /* Stevia */; };
 		3697A48B25B2E993008E2319 /* CarRentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A48A25B2E993008E2319 /* CarRentView.swift */; };
+		3697A49025B2F47A008E2319 /* CarRentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A48F25B2F47A008E2319 /* CarRentCollectionViewCell.swift */; };
+		3697A49625B30EAE008E2319 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A49525B30EAE008E2319 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,7 @@
 		3697A47825B2E1ED008E2319 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3697A47A25B2E1ED008E2319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3697A48A25B2E993008E2319 /* CarRentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentView.swift; sourceTree = "<group>"; };
+		3697A48F25B2F47A008E2319 /* CarRentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +36,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3697A48625B2E902008E2319 /* Stevia in Frameworks */,
+				3697A49625B30EAE008E2319 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +84,7 @@
 		3697A48825B2E95D008E2319 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3697A48E25B2F461008E2319 /* CollectionViewCells */,
 				3697A48925B2E968008E2319 /* CarRent */,
 			);
 			path = Views;
@@ -91,6 +96,14 @@
 				3697A48A25B2E993008E2319 /* CarRentView.swift */,
 			);
 			path = CarRent;
+			sourceTree = "<group>";
+		};
+		3697A48E25B2F461008E2319 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				3697A48F25B2F47A008E2319 /* CarRentCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,6 +124,7 @@
 			name = CarRent;
 			packageProductDependencies = (
 				3697A48525B2E902008E2319 /* Stevia */,
+				3697A49525B30EAE008E2319 /* Alamofire */,
 			);
 			productName = CarRent;
 			productReference = 3697A46925B2E1E9008E2319 /* CarRent.app */;
@@ -141,6 +155,7 @@
 			mainGroup = 3697A46025B2E1E9008E2319;
 			packageReferences = (
 				3697A48425B2E902008E2319 /* XCRemoteSwiftPackageReference "Stevia" */,
+				3697A49425B30EAE008E2319 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 3697A46A25B2E1E9008E2319 /* Products */;
 			projectDirPath = "";
@@ -168,6 +183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3697A49025B2F47A008E2319 /* CarRentCollectionViewCell.swift in Sources */,
 				3697A47125B2E1E9008E2319 /* CarRentViewController.swift in Sources */,
 				3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */,
 				3697A48B25B2E993008E2319 /* CarRentView.swift in Sources */,
@@ -375,6 +391,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		3697A49425B30EAE008E2319 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -382,6 +406,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3697A48425B2E902008E2319 /* XCRemoteSwiftPackageReference "Stevia" */;
 			productName = Stevia;
+		};
+		3697A49525B30EAE008E2319 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3697A49425B30EAE008E2319 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -32,7 +32,6 @@ class CarFilterTopBar: UIView {
     return view
   }()
 
-  // TODO: Should be horizontal collectinon view!
   let horizontalStackView = UIStackView()
 
   convenience init() {

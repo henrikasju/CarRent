@@ -258,12 +258,12 @@ extension CarRentViewController {
       print("Distance!")
       validActionRequest = true
 
+      // if location premissions were lifted
       if currentLocation == nil {
         currentLocation = getCurrentLocation()
       }
 
       if currentLocation != nil {
-//        print("lat : long - [\(location.coordinate.latitude) : \(location.coordinate.longitude)]")
 
         rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
           a.location.distance ?? 0 < b.location.distance ?? 0
@@ -271,11 +271,6 @@ extension CarRentViewController {
       }else{
         print("No location found! and alert with error enum!")
       }
-
-      // TODO: implment!
-//      rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
-//        a.plateNumber.lowercased() < b.plateNumber.lowercased()
-//      }
 
     case ButtonSortType.numberPlates.rawValue:
       print("NumberPlates!")
@@ -301,7 +296,6 @@ extension CarRentViewController {
 
     if validActionRequest {
 
-      // TODO: weird reload behaviour!
       sortButtonPressed()
       reloadData()
       v.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

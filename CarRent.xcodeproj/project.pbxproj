@@ -19,6 +19,7 @@
 		3697A49A25B30FAD008E2319 /* RentalCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A49925B30FAD008E2319 /* RentalCar.swift */; };
 		3697A49F25B3348A008E2319 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A49E25B3348A008E2319 /* AlamofireImage */; };
 		3697A4A425B37A5D008E2319 /* CarFilterTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A4A325B37A5C008E2319 /* CarFilterTopBar.swift */; };
+		3697A4A825B435BC008E2319 /* RxCoreLocation in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A4A725B435BC008E2319 /* RxCoreLocation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 			files = (
 				3697A48625B2E902008E2319 /* Stevia in Frameworks */,
 				3697A49625B30EAE008E2319 /* Alamofire in Frameworks */,
+				3697A4A825B435BC008E2319 /* RxCoreLocation in Frameworks */,
 				3697A49F25B3348A008E2319 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +144,7 @@
 				3697A48525B2E902008E2319 /* Stevia */,
 				3697A49525B30EAE008E2319 /* Alamofire */,
 				3697A49E25B3348A008E2319 /* AlamofireImage */,
+				3697A4A725B435BC008E2319 /* RxCoreLocation */,
 			);
 			productName = CarRent;
 			productReference = 3697A46925B2E1E9008E2319 /* CarRent.app */;
@@ -174,6 +177,7 @@
 				3697A48425B2E902008E2319 /* XCRemoteSwiftPackageReference "Stevia" */,
 				3697A49425B30EAE008E2319 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3697A49D25B3348A008E2319 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				3697A4A625B435BB008E2319 /* XCRemoteSwiftPackageReference "RxCoreLocation" */,
 			);
 			productRefGroup = 3697A46A25B2E1E9008E2319 /* Products */;
 			projectDirPath = "";
@@ -427,6 +431,14 @@
 				minimumVersion = 4.1.0;
 			};
 		};
+		3697A4A625B435BB008E2319 /* XCRemoteSwiftPackageReference "RxCoreLocation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxCoreLocation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -444,6 +456,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3697A49D25B3348A008E2319 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
+		};
+		3697A4A725B435BC008E2319 /* RxCoreLocation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3697A4A625B435BB008E2319 /* XCRemoteSwiftPackageReference "RxCoreLocation" */;
+			productName = RxCoreLocation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

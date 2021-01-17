@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct RentalCar: Codable, Hashable {
   let id: Int
   let plateNumber: String
-  let location: Location
+  var location: Location
   let model: Model
   let batteryPercentage: Int
 
@@ -19,6 +20,12 @@ struct RentalCar: Codable, Hashable {
     let latitude: Double
     let longitude: Double
     let address: String
+    var distance: CLLocationDistance?
+    var computedLocation: CLLocation {
+      get {
+        return CLLocation(latitude: latitude, longitude: longitude)
+      }
+    }
   }
 
   struct Model: Codable, Hashable {

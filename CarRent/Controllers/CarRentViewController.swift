@@ -9,13 +9,22 @@ import UIKit
 import Stevia
 import Alamofire
 import AlamofireImage
+import CoreLocation
+import RxCoreLocation
+import RxCocoa
+import RxSwift
 
 fileprivate typealias RentalCarDataSource = UICollectionViewDiffableDataSource<CarRentViewController.Section, RentalCar>
 fileprivate typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<CarRentViewController.Section, RentalCar>
 
 class CarRentViewController: UIViewController {
 
+  let manager = CLLocationManager()
+  let bag = DisposeBag()
+  var currentLocation: CLLocation?
+
   private let v = CarRentView()
+
   var rentalCars = [RentalCar]()
   private var dataSource: RentalCarDataSource!
 
@@ -27,11 +36,27 @@ class CarRentViewController: UIViewController {
   }
 
   override func viewWillAppear(_ animated: Bool) {
-    fetchData()
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    // Setuping location manager
+    manager.requestAlwaysAuthorization()
+
+//    manager.rx
+//      .didChangeAuthorization
+//      .subscribe { _, status in
+//        switch status {
+//        case .authorizedWhenInUse, .authorizedAlways :
+//          print("OK")
+//          self.currentLocation = self.getCurrentLocation()
+//        default:
+//          break
+//        }
+//      }.disposed(by: bag)
+
+    fetchData()
 
     navigationItem.title = "Rental Cars"
 
@@ -70,7 +95,15 @@ class CarRentViewController: UIViewController {
       }
 
       cell.carNameLabel.text("Car name - [\(cellData.model.title)]")
-      cell.carDistanceLabel.text("Distance: [\("Need to calc")]km")
+
+      let distance: String = ( cellData.location.distance != nil ? String(format: "%.2f", cellData.location.distance! / 1000) : "Nil" )
+      if cellData.location.distance != nil {
+        cell.carDistanceLabel.text("Distance: [\(distance)]km")
+        cell.carDistanceLabel.isHidden = false
+      }else{
+        cell.carDistanceLabel.isHidden = true
+      }
+
       cell.carPlaneNumberLabel.text("Number Plates - [\(cellData.plateNumber)]")
       cell.carRemainingBattery.text("Battery [\(cellData.batteryPercentage)]%")
 
@@ -102,18 +135,51 @@ class CarRentViewController: UIViewController {
           case let .failure(error):
             print("Network error: ", error)
           case.success:
-
-            if let decodedData = response.value {
-
+            if var decodedData = response.value {
               self.rentalCars = decodedData
               self.reloadData()
             }else {
-
               print("Failed to unwrap data!")
             }
           }
         }
 
+    }
+  }
+
+  func getCurrentLocation() -> CLLocation? {
+
+    manager.requestAlwaysAuthorization()
+    var currentLocation: CLLocation? = nil
+
+    if manager.authorizationStatus == .denied {
+      print("Denied auth, show alert to enable in settings!")
+    }else{
+      manager.startUpdatingLocation()
+
+      manager.rx
+        .location
+        .subscribe { location in
+//          print(location.)
+          print("Loc: [\(String(describing: location?.coordinate))]")
+          if let loc = location {
+            currentLocation = loc
+            self.manager.stopUpdatingLocation()
+            self.setRentalCarDistances(toLocation: loc)
+            self.reloadData()
+          }
+        } onError: { error in
+          print("Show alert! Error found: ", error.localizedDescription)
+        }.disposed(by: bag)
+
+    }
+
+    return currentLocation
+  }
+
+  func setRentalCarDistances(toLocation: CLLocation) {
+    for index in 0..<rentalCars.count {
+      rentalCars[index].location.distance = toLocation.distance(from: rentalCars[index].location.computedLocation)
     }
   }
 
@@ -211,6 +277,20 @@ extension CarRentViewController {
     case ButtonSortType.distance.rawValue:
       print("Distance!")
       validActionRequest = true
+
+      if currentLocation == nil {
+        currentLocation = getCurrentLocation()
+      }
+
+      if let location = currentLocation {
+//        print("lat : long - [\(location.coordinate.latitude) : \(location.coordinate.longitude)]")
+
+        rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
+          a.location.distance ?? 0 < b.location.distance ?? 0
+        }
+      }else{
+        print("No location found! and alert with error enum!")
+      }
 
       // TODO: implment!
 //      rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in

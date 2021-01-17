@@ -14,56 +14,101 @@ class CarRentCollectionViewCell: UICollectionViewCell {
       return "CarRentCollectionViewCell"
   }
 
+  var carRentViewModel: CarRentCellViewModel! {
+    didSet {
+      carNameLabel.text(carRentViewModel.modelName)
+      carAddressLabel.text(carRentViewModel.address)
+      carPlaneNumberLabel.text(carRentViewModel.plateNumber)
+      carRemainingBatteryLabel.text(carRentViewModel.batteryPercentage)
+      if carRentViewModel.distance != nil {
+        carDistanceLabel.text(carRentViewModel.distance!)
+      }
+    }
+  }
+
+  let carNameTitleFont = UIFont.systemFont(ofSize: 22, weight: .medium)
+  let carPlateNumberFont = UIFont.systemFont(ofSize: 14, weight: .regular)
+  let carAddressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
+  let carDistanceFont = UIFont.systemFont(ofSize: 14, weight: .medium)
+  let carBatteryFont = UIFont.systemFont(ofSize: 14, weight: .medium)
+
   let carImageView = UIImageView()
   let carNameLabel = UILabel()
+  let carAddressLabel = UILabel()
   let carDistanceLabel = UILabel()
   let carPlaneNumberLabel = UILabel()
-  let carRemainingBattery = UILabel()
+  let carRemainingBatteryLabel = UILabel()
 
   let verticalStackView = UIStackView()
-
-  var imageViewHeightContraint: NSLayoutConstraint?
+  let verticalCarDetailsStackView = UIStackView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
 
+    let cornerRadius: CGFloat = 10.0
+    layer.cornerRadius = cornerRadius
+
     subviews {
-      verticalStackView
+      carImageView
+      verticalCarDetailsStackView
+      carAddressLabel
+      carDistanceLabel
     }
 
-    verticalStackView.fillContainer()
-
-    verticalStackView.addArrangedSubview(carImageView)
-    verticalStackView.addArrangedSubview(carNameLabel)
-    verticalStackView.addArrangedSubview(carDistanceLabel)
-    verticalStackView.addArrangedSubview(carPlaneNumberLabel)
-    verticalStackView.addArrangedSubview(carRemainingBattery)
-
-    verticalStackView.axis = .vertical
-    verticalStackView.alignment = .center
-    verticalStackView.distribution = .fill
-    verticalStackView.spacing = 1
-
-    imageViewHeightContraint = carImageView.Height == 175
-    carImageView.left(0).right(0)
+    carImageView.top(cornerRadius).left(cornerRadius).width(175).height(100)
     carImageView.contentMode = .scaleAspectFit
     carImageView.tintColor = .gray
+    carImageView.backgroundColor = .clear
 
+    verticalCarDetailsStackView.backgroundColor = .clear
 
-    carNameLabel.backgroundColor = .red
-    carDistanceLabel.textColor = .black
-    carPlaneNumberLabel.textColor = .black
-    carRemainingBattery.textColor = .black
+    verticalCarDetailsStackView.Left == carImageView.Right + 8
+    verticalCarDetailsStackView.Top == carImageView.Top
+    verticalCarDetailsStackView.Bottom == carDistanceLabel.Top
+    verticalCarDetailsStackView.right(cornerRadius)
 
-    carPlaneNumberLabel.backgroundColor = .cyan
+    verticalCarDetailsStackView.addArrangedSubview(carNameLabel)
+    verticalCarDetailsStackView.addArrangedSubview(carPlaneNumberLabel)
+    verticalCarDetailsStackView.addArrangedSubview(carRemainingBatteryLabel)
 
+    verticalCarDetailsStackView.axis = .vertical
+    verticalCarDetailsStackView.alignment = .leading
+    verticalCarDetailsStackView.distribution = .fillProportionally
+    verticalCarDetailsStackView.backgroundColor = .clear
 
-//    self.backgroundColor = .red
-//    verticalStackView.backgroundColor = .green
-  }
+    carAddressLabel.left(cornerRadius).bottom(cornerRadius)
+    carAddressLabel.Right == carImageView.Right
+    carAddressLabel.Top == carImageView.Bottom
+    carAddressLabel.height(30)
 
-  func configure(with rentalCar: RentalCar){
-//    print(<#T##items: Any...##Any#>)
+    carDistanceLabel.right(cornerRadius).height(30).bottom(cornerRadius)
+    carDistanceLabel.Top == carAddressLabel.Top
+    carDistanceLabel.Left == carAddressLabel.Right + 8
+
+    carNameLabel.backgroundColor = .clear
+    carNameLabel.textColor = UIColor(named: "MainFontColor")
+    carNameLabel.font = carNameTitleFont
+
+    carPlaneNumberLabel.backgroundColor = .clear
+    carPlaneNumberLabel.textColor = UIColor(named: "SecondaryFontColor")
+    carPlaneNumberLabel.font = carPlateNumberFont
+
+    carRemainingBatteryLabel.textColor = UIColor(named: "BatteryColor")
+    carRemainingBatteryLabel.backgroundColor = .clear
+    carRemainingBatteryLabel.textAlignment = .right
+    carRemainingBatteryLabel.font = carBatteryFont
+
+    carAddressLabel.backgroundColor = .clear
+    carAddressLabel.textColor = UIColor(named: "AddressFontColor")
+    carAddressLabel.textAlignment = .left
+    carAddressLabel.font = carAddressFont
+
+    carDistanceLabel.textColor = UIColor(named: "BackgroundColor")
+    carDistanceLabel.backgroundColor = .clear
+    carDistanceLabel.textAlignment = .right
+    carDistanceLabel.font = carDistanceFont
+
+    backgroundColor = .white
   }
 
   required init?(coder: NSCoder) {

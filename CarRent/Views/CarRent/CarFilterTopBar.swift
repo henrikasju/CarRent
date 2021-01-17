@@ -16,75 +16,84 @@ enum ButtonSortType: Int {
 
 class CarFilterTopBar: UIView {
 
+  let titleFont = UIFont.systemFont(ofSize: 22, weight: .semibold)
+  let buttonFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+  let buttonColor = UIColor(named: "BackgroundColor")
+
   let titleLabel = UILabel()
   let distanceButton = UIButton()
   let numberPlatesButton = UIButton()
   let batteryButton = UIButton()
 
+  var bottomViewBorder: UIView = {
+    let view = UIView()
+    view.height(1)
+    view.backgroundColor = UIColor(named: "BackgroundColor")
+    return view
+  }()
+
   // TODO: Should be horizontal collectinon view!
   let horizontalStackView = UIStackView()
 
-  let swipeUpGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(viewWasSwipedUp))
-
   convenience init() {
     self.init(frame: .zero)
-
-    addGestureRecognizer(swipeUpGestureRecognizer)
-
-
-    subviews{
-      titleLabel
-      horizontalStackView
-    }
-
-    titleLabel.text("Sort by")
-    titleLabel.left(0).top(0)
 
     horizontalStackView.addArrangedSubview(distanceButton)
     horizontalStackView.addArrangedSubview(numberPlatesButton)
     horizontalStackView.addArrangedSubview(batteryButton)
 
+
+    subviews{
+      titleLabel
+      horizontalStackView
+      bottomViewBorder
+    }
+
+    bottomViewBorder.left(0).right(0).bottom(0)
+
+    titleLabel.text("Sort by")
+    titleLabel.font = titleFont
+    titleLabel.Left == horizontalStackView.Left
+    titleLabel.Top == Top + 4
+
     horizontalStackView.axis = .horizontal
     horizontalStackView.alignment = .center
-    horizontalStackView.distribution = .fillProportionally
-    horizontalStackView.spacing = 24
+    horizontalStackView.distribution = .equalSpacing
 
     horizontalStackView.Top == titleLabel.Bottom
-    horizontalStackView.left(0).right(0).bottom(0)
+    horizontalStackView.left(12).right(12).bottom(0).centerHorizontally()
+
+    let buttonsEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    let buttonHeight: CGFloat = 35.0
+    let buttonCornerRadius: CGFloat = buttonHeight / 2.0
 
     distanceButton.text("Distance")
-    distanceButton.setImage(UIImage(systemName: "car"), for: .normal)
+    distanceButton.titleLabel?.font = buttonFont
     distanceButton.semanticContentAttribute = .forceRightToLeft
     distanceButton.tag = ButtonSortType.distance.rawValue
-    distanceButton.backgroundColor = .systemRed
-    distanceButton.layer.cornerRadius = 35/2
-    distanceButton.height(35)
-    distanceButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    distanceButton.backgroundColor = buttonColor
+    distanceButton.layer.cornerRadius = buttonCornerRadius
+    distanceButton.height(buttonHeight)
+    distanceButton.contentEdgeInsets = buttonsEdgeInsets
 
     numberPlatesButton.text("Number Plates")
+    numberPlatesButton.titleLabel?.font = buttonFont
     numberPlatesButton.tag = ButtonSortType.numberPlates.rawValue
-    numberPlatesButton.backgroundColor = .systemRed
-    numberPlatesButton.setImage(UIImage(systemName: "car"), for: .normal)
+    numberPlatesButton.backgroundColor = buttonColor
     numberPlatesButton.semanticContentAttribute = .forceRightToLeft
-    numberPlatesButton.layer.cornerRadius = 35/2
-    numberPlatesButton.height(35)
-    numberPlatesButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    numberPlatesButton.layer.cornerRadius = buttonCornerRadius
+    numberPlatesButton.height(buttonHeight)
+    numberPlatesButton.contentEdgeInsets = buttonsEdgeInsets
 
     batteryButton.text("Battery")
+    batteryButton.titleLabel?.font = buttonFont
     batteryButton.tag = ButtonSortType.battery.rawValue
-    batteryButton.backgroundColor = .systemRed
-    batteryButton.setImage(UIImage(systemName: "car"), for: .normal)
-    batteryButton.semanticContentAttribute = .forceRightToLeft
-    batteryButton.layer.cornerRadius = 35/2
-    batteryButton.height(35)
-    batteryButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    batteryButton.backgroundColor = buttonColor
+    batteryButton.layer.cornerRadius = buttonCornerRadius
+    batteryButton.height(buttonHeight)
+    batteryButton.contentEdgeInsets = buttonsEdgeInsets
 
-    backgroundColor = .systemPink
-    horizontalStackView.backgroundColor = .cyan
+    horizontalStackView.backgroundColor = .clear
+    backgroundColor = .white
   }
-
-  @objc func viewWasSwipedUp(){
-    print("Swiped up view!")
-  }
-
 }

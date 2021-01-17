@@ -21,6 +21,7 @@ class CarRentViewController: UIViewController {
 
   let manager = CLLocationManager()
   let bag = DisposeBag()
+
   var currentLocation: CLLocation?
 
   private let v = CarRentView()
@@ -56,17 +57,22 @@ class CarRentViewController: UIViewController {
 //        }
 //      }.disposed(by: bag)
 
-    fetchData()
+    fetchRentalCars()
+    setupNavigationItems()
+    setupViews()
+    configureDataSource()
+  }
 
+  private func setupNavigationItems(){
     navigationItem.title = "Rental Cars"
 
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(sortButtonPressed(sender:)))
+  }
 
+  private func setupViews(){
     v.collectionView.collectionViewLayout = createCompositionalLayout()
     v.collectionView.delegate = self
     v.collectionView.register(CarRentCollectionViewCell.self, forCellWithReuseIdentifier: CarRentCollectionViewCell.identifier)
-
-    configureDataSource()
 
     let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(filterTopBarSwipedUp(sender:)))
     swipeGesture.direction = .up
@@ -85,27 +91,14 @@ class CarRentViewController: UIViewController {
 
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarRentCollectionViewCell.identifier, for: indexPath) as! CarRentCollectionViewCell
 
-      let cellData = rentalCar
-
+      let cellImagePhotoURL = rentalCar.model.photoUrl
       let placeholder = UIImage(systemName: "car")
 
-      // TODO: Fix aspect ratio!
-      if let url = URL(string: cellData.model.photoUrl) {
-        cell.carImageView.af.setImage(withURL: url, cacheKey: cellData.model.photoUrl, placeholderImage: placeholder, filter: AspectScaledToFitSizeFilter(size: CGSize(width: 175, height: cell.imageViewHeightContraint!.constant)))
+      if let url = URL(string: cellImagePhotoURL) {
+        cell.carImageView.af.setImage(withURL: url, cacheKey: cellImagePhotoURL, placeholderImage: placeholder)
       }
 
-      cell.carNameLabel.text("Car name - [\(cellData.model.title)]")
-
-      let distance: String = ( cellData.location.distance != nil ? String(format: "%.2f", cellData.location.distance! / 1000) : "Nil" )
-      if cellData.location.distance != nil {
-        cell.carDistanceLabel.text("Distance: [\(distance)]km")
-        cell.carDistanceLabel.isHidden = false
-      }else{
-        cell.carDistanceLabel.isHidden = true
-      }
-
-      cell.carPlaneNumberLabel.text("Number Plates - [\(cellData.plateNumber)]")
-      cell.carRemainingBattery.text("Battery [\(cellData.batteryPercentage)]%")
+      cell.carRentViewModel = CarRentCellViewModel(model: rentalCar)
 
       return cell
     })
@@ -123,27 +116,14 @@ class CarRentViewController: UIViewController {
     dataSource.apply(snapshot, animatingDifferences: true)
   }
 
-  func fetchData() {
-    if let url = URL(string: "https://development.espark.lt/api/mobile/public/availablecars") {
-
-      AF.request(url)
-        .validate()
-        .validate(contentType: ["application/json"])
-        .responseDecodable(of: [RentalCar].self ) { response in
-
-          switch response.result {
-          case let .failure(error):
-            print("Network error: ", error)
-          case.success:
-            if var decodedData = response.value {
-              self.rentalCars = decodedData
-              self.reloadData()
-            }else {
-              print("Failed to unwrap data!")
-            }
-          }
-        }
-
+  func fetchRentalCars() {
+    RentalCarAPI.fetchAllRentalCars { (result: [RentalCar]?, error: Error?) in
+      if let validError = error {
+        print("Network error: ", validError)
+      }else if let validResults = result {
+        self.rentalCars = validResults
+        self.reloadData()
+      }
     }
   }
 
@@ -199,7 +179,7 @@ class CarRentViewController: UIViewController {
 
     let section = NSCollectionLayoutSection(group: group)
     section.interGroupSpacing = 20
-    section.contentInsets.bottom = 30
+    section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 30, trailing: 10)
 
     return section
   }
@@ -241,7 +221,7 @@ extension CarRentViewController {
       carFilterTopBar.Bottom == self.view.safeAreaLayoutGuide.Top
       carFilterTopBar.Left == self.view.safeAreaLayoutGuide.Left
       carFilterTopBar.Right == self.view.safeAreaLayoutGuide.Right
-      carFilterTopBar.Height == 100
+      carFilterTopBar.Height == 80
 
       self.view.layoutIfNeeded()
 
@@ -282,7 +262,7 @@ extension CarRentViewController {
         currentLocation = getCurrentLocation()
       }
 
-      if let location = currentLocation {
+      if currentLocation != nil {
 //        print("lat : long - [\(location.coordinate.latitude) : \(location.coordinate.longitude)]")
 
         rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in

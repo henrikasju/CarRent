@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3610081E25B4A664003F78D5 /* CarRentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3610081D25B4A664003F78D5 /* CarRentCellViewModel.swift */; };
+		3610082625B4B27F003F78D5 /* RentalCarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3610082525B4B27F003F78D5 /* RentalCarAPI.swift */; };
 		3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A46C25B2E1E9008E2319 /* AppDelegate.swift */; };
 		3697A46F25B2E1E9008E2319 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A46E25B2E1E9008E2319 /* SceneDelegate.swift */; };
 		3697A47125B2E1E9008E2319 /* CarRentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A47025B2E1E9008E2319 /* CarRentViewController.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3610081D25B4A664003F78D5 /* CarRentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentCellViewModel.swift; sourceTree = "<group>"; };
+		3610082525B4B27F003F78D5 /* RentalCarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalCarAPI.swift; sourceTree = "<group>"; };
 		3697A46925B2E1E9008E2319 /* CarRent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3697A46C25B2E1E9008E2319 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3697A46E25B2E1E9008E2319 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3610081C25B4A5EE003F78D5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3610081D25B4A664003F78D5 /* CarRentCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		3610082225B4B241003F78D5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3610082325B4B249003F78D5 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3610082325B4B249003F78D5 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3610082525B4B27F003F78D5 /* RentalCarAPI.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		3697A46025B2E1E9008E2319 = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +98,8 @@
 		3697A46B25B2E1E9008E2319 /* CarRent */ = {
 			isa = PBXGroup;
 			children = (
+				3610082225B4B241003F78D5 /* Services */,
+				3610081C25B4A5EE003F78D5 /* ViewModels */,
 				3697A49825B30F79008E2319 /* Models */,
 				3697A48825B2E95D008E2319 /* Views */,
 				3697A48225B2E28D008E2319 /* Controllers */,
@@ -205,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3610081E25B4A664003F78D5 /* CarRentCellViewModel.swift in Sources */,
 				3697A49A25B30FAD008E2319 /* RentalCar.swift in Sources */,
 				3697A4A425B37A5D008E2319 /* CarFilterTopBar.swift in Sources */,
 				3697A49025B2F47A008E2319 /* CarRentCollectionViewCell.swift in Sources */,
@@ -212,6 +243,7 @@
 				3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */,
 				3697A48B25B2E993008E2319 /* CarRentView.swift in Sources */,
 				3697A46F25B2E1E9008E2319 /* SceneDelegate.swift in Sources */,
+				3610082625B4B27F003F78D5 /* RentalCarAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

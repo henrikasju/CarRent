@@ -15,7 +15,7 @@ class CarRentView: UIView {
   convenience init() {
     self.init(frame: .zero)
 
-    backgroundColor = .white
+    backgroundColor = UIColor(named: "BackgroundColor")
 
     subviews {
       collectionView
@@ -30,6 +30,5 @@ class CarRentView: UIView {
     collectionView.contentInset.top = 10
 
     collectionView.backgroundColor = .clear
-//    collectionView.showsVerticalScrollIndicator = false
   }
 }

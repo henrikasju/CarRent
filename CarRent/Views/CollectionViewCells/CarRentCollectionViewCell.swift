@@ -62,6 +62,10 @@ class CarRentCollectionViewCell: UICollectionViewCell {
 //    verticalStackView.backgroundColor = .green
   }
 
+  func configure(with rentalCar: RentalCar){
+//    print(<#T##items: Any...##Any#>)
+  }
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   func setupNavigationBarAppearance() {
     let appearance = UINavigationBarAppearance()
     appearance.configureWithOpaqueBackground()
-    appearance.backgroundColor = .clear
+    appearance.backgroundColor = .white
     appearance.titleTextAttributes = [
       .foregroundColor: UIColor.black,
       .font: UIFont.systemFont(ofSize: 28, weight: .semibold)

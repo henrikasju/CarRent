@@ -18,6 +18,7 @@
 		3697A49625B30EAE008E2319 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A49525B30EAE008E2319 /* Alamofire */; };
 		3697A49A25B30FAD008E2319 /* RentalCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A49925B30FAD008E2319 /* RentalCar.swift */; };
 		3697A49F25B3348A008E2319 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3697A49E25B3348A008E2319 /* AlamofireImage */; };
+		3697A4A425B37A5D008E2319 /* CarFilterTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A4A325B37A5C008E2319 /* CarFilterTopBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		3697A48A25B2E993008E2319 /* CarRentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentView.swift; sourceTree = "<group>"; };
 		3697A48F25B2F47A008E2319 /* CarRentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentCollectionViewCell.swift; sourceTree = "<group>"; };
 		3697A49925B30FAD008E2319 /* RentalCar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalCar.swift; sourceTree = "<group>"; };
+		3697A4A325B37A5C008E2319 /* CarFilterTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarFilterTopBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				3697A48A25B2E993008E2319 /* CarRentView.swift */,
+				3697A4A325B37A5C008E2319 /* CarFilterTopBar.swift */,
 			);
 			path = CarRent;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3697A49A25B30FAD008E2319 /* RentalCar.swift in Sources */,
+				3697A4A425B37A5D008E2319 /* CarFilterTopBar.swift in Sources */,
 				3697A49025B2F47A008E2319 /* CarRentCollectionViewCell.swift in Sources */,
 				3697A47125B2E1E9008E2319 /* CarRentViewController.swift in Sources */,
 				3697A46D25B2E1E9008E2319 /* AppDelegate.swift in Sources */,

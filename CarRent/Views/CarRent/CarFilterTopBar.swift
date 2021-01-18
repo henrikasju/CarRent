@@ -52,6 +52,7 @@ class CarFilterTopBar: UIView {
 
     titleLabel.text("Sort by")
     titleLabel.font = titleFont
+    titleLabel.textColor = .black
     titleLabel.Left == horizontalStackView.Left
     titleLabel.Top == Top + 4
 

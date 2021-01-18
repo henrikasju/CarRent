@@ -250,10 +250,17 @@ extension CarRentViewController {
           rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
             a.location.distance ?? 0 < b.location.distance ?? 0
           }
+        }else {
+          let message = "Could not locate device."
+          Alert.showErrorAlert(on: self, title: "Location issues", message: message, buttonTitle: "Close", buttonHandler: nil) {
+
+          }
+
+          validActionRequest = false
         }
       }else{
-        let message = "Could not locate device."
-        Alert.showErrorAlert(on: self, title: "Location issues", message: message, buttonTitle: "Close", buttonHandler: nil) {
+        let message = "Please allow app location tracking in settings."
+        Alert.showErrorAlert(on: self, title: "Location Permissions", message: message, buttonTitle: "Understood", buttonHandler: nil) {
 
         }
 

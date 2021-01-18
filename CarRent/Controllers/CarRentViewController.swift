@@ -10,17 +10,13 @@ import Stevia
 import Alamofire
 import AlamofireImage
 import CoreLocation
-import RxCoreLocation
-import RxCocoa
-import RxSwift
 
 fileprivate typealias RentalCarDataSource = UICollectionViewDiffableDataSource<CarRentViewController.Section, RentalCar>
 fileprivate typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<CarRentViewController.Section, RentalCar>
 
 class CarRentViewController: UIViewController {
 
-  let manager = CLLocationManager()
-  let bag = DisposeBag()
+  var locationManager: CurrentDeviceLocationManager!
 
   var currentLocation: CLLocation?
 
@@ -37,25 +33,16 @@ class CarRentViewController: UIViewController {
   }
 
   override func viewWillAppear(_ animated: Bool) {
+
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    // Setuping location manager
-    manager.requestAlwaysAuthorization()
+    locationManager = CurrentDeviceLocationManager(delegate: self)
 
-//    manager.rx
-//      .didChangeAuthorization
-//      .subscribe { _, status in
-//        switch status {
-//        case .authorizedWhenInUse, .authorizedAlways :
-//          print("OK")
-//          self.currentLocation = self.getCurrentLocation()
-//        default:
-//          break
-//        }
-//      }.disposed(by: bag)
+    // Setuping location manager
+    locationManager.requestAuthorization()
 
     fetchRentalCars()
     setupNavigationItems()
@@ -82,6 +69,7 @@ class CarRentViewController: UIViewController {
     carFilterTopBar.distanceButton.addTarget(self, action: #selector(sortSelectionButtonPressed(sender:)), for: .touchUpInside)
     carFilterTopBar.numberPlatesButton.addTarget(self, action: #selector(sortSelectionButtonPressed(sender:)), for: .touchUpInside)
     carFilterTopBar.batteryButton.addTarget(self, action: #selector(sortSelectionButtonPressed(sender:)), for: .touchUpInside)
+
   }
 
   private func configureDataSource() {
@@ -119,42 +107,41 @@ class CarRentViewController: UIViewController {
   func fetchRentalCars() {
     RentalCarAPI.fetchAllRentalCars { (result: [RentalCar]?, error: Error?) in
       if let validError = error {
-        print("Network error: ", validError)
+        Alert.showErrorAlert(on: self, title: "Network error", message: validError.localizedDescription, buttonTitle: "Close", buttonHandler: nil) {
+
+        }
       }else if let validResults = result {
         self.rentalCars = validResults
+        if self.locationManager.getAuthorizationStatus() != .denied {
+          self.setCurrentLocation()
+        }
+        if self.currentLocation != nil {
+          self.setRentalCarDistances(toLocation: self.currentLocation!)
+        }
+
         self.reloadData()
       }
     }
   }
 
-  func getCurrentLocation() -> CLLocation? {
+  func setCurrentLocation() {
 
-    manager.requestAlwaysAuthorization()
-    var currentLocation: CLLocation? = nil
+    locationManager.getCurrentLocation { (error: LocationErrors?, location: CLLocation?) in
+      if let validError = error {
 
-    if manager.authorizationStatus == .denied {
-      print("Denied auth, show alert to enable in settings!")
-    }else{
-      manager.startUpdatingLocation()
+        switch validError {
+        case .locationDenied:
+          let message = "Please allow app location tracking in settings."
+          Alert.showErrorAlert(on: self, title: "Location Permissions", message: message, buttonTitle: "Understood", buttonHandler: nil) {
 
-      manager.rx
-        .location
-        .subscribe { location in
-//          print(location.)
-          print("Loc: [\(String(describing: location?.coordinate))]")
-          if let loc = location {
-            currentLocation = loc
-            self.manager.stopUpdatingLocation()
-            self.setRentalCarDistances(toLocation: loc)
-            self.reloadData()
           }
-        } onError: { error in
-          print("Show alert! Error found: ", error.localizedDescription)
-        }.disposed(by: bag)
+        }
 
+      }else if let validLocation = location {
+        self.currentLocation = validLocation
+        setRentalCarDistances(toLocation: validLocation)
+      }
     }
-
-    return currentLocation
   }
 
   func setRentalCarDistances(toLocation: CLLocation) {
@@ -207,8 +194,6 @@ extension CarRentViewController {
     showingSortView = showingSortView ? false : true
     navigationItem.rightBarButtonItem?.isEnabled = false
 
-    print("Sort button pressed: ", showingSortView ? "showing view" : "closing view")
-
     let animationDuration = 0.5
 
     if showingSortView {
@@ -250,30 +235,32 @@ extension CarRentViewController {
   }
 
   @objc func sortSelectionButtonPressed(sender: UIButton){
-    print("Sort selection button Pressed")
     var validActionRequest = false
 
     switch sender.tag {
     case ButtonSortType.distance.rawValue:
-      print("Distance!")
       validActionRequest = true
 
       // if location premissions were lifted
-      if currentLocation == nil {
-        currentLocation = getCurrentLocation()
-      }
+      if locationManager.getAuthorizationStatus() != .denied {
+        setCurrentLocation()
+        if currentLocation != nil {
+          setRentalCarDistances(toLocation: currentLocation!)
 
-      if currentLocation != nil {
-
-        rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
-          a.location.distance ?? 0 < b.location.distance ?? 0
+          rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
+            a.location.distance ?? 0 < b.location.distance ?? 0
+          }
         }
       }else{
-        print("No location found! and alert with error enum!")
+        let message = "Could not locate device."
+        Alert.showErrorAlert(on: self, title: "Location issues", message: message, buttonTitle: "Close", buttonHandler: nil) {
+
+        }
+
+        validActionRequest = false
       }
 
     case ButtonSortType.numberPlates.rawValue:
-      print("NumberPlates!")
       validActionRequest = true
 
       sender.isSelected = true
@@ -283,7 +270,6 @@ extension CarRentViewController {
       }
 
     case ButtonSortType.battery.rawValue:
-      print("Battery!")
       validActionRequest = true
 
       rentalCars.sort { (a: RentalCar, b: RentalCar) -> Bool in
@@ -303,8 +289,27 @@ extension CarRentViewController {
 }
 
   @objc func filterTopBarSwipedUp(sender: UITapGestureRecognizer){
-    print("Gesture Found!")
     sortButtonPressed()
   }
 
+}
+
+extension CarRentViewController: CurrentDeviceLocationManagerDelegate {
+  func locationPermissionsDidChange(_ manager: CurrentDeviceLocationManager, authorizationStatus: CLAuthorizationStatus) {
+    if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+      manager.getCurrentLocation { (error: LocationErrors?, location: CLLocation?) in
+        if let validError = error {
+          print(validError)
+        }else if let validLocation = location {
+          let firstLocation = currentLocation == nil
+          self.currentLocation = validLocation
+          setRentalCarDistances(toLocation: validLocation)
+
+          if firstLocation {
+            reloadData()
+          }
+        }
+      }
+    }
+  }
 }

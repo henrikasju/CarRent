@@ -21,6 +21,6 @@ struct CarRentCellViewModel {
     self.batteryPercentage = String(format: "Battery %d%%", model.batteryPercentage)
     self.address = model.location.address
     self.distance = model.location.distance != nil ?
-      String(format: "%.1f km", (model.location.distance!/1000) ) : nil
+      String(format: "Away %.1f km", (model.location.distance!/1000) ) : nil
   }
 }

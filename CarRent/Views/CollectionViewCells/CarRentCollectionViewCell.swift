@@ -27,8 +27,8 @@ class CarRentCollectionViewCell: UICollectionViewCell {
   }
 
   let carNameTitleFont = UIFont.systemFont(ofSize: 22, weight: .medium)
-  let carPlateNumberFont = UIFont.systemFont(ofSize: 14, weight: .regular)
-  let carAddressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
+  let carPlateNumberFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+  let carAddressFont = UIFont.systemFont(ofSize: 14, weight: .medium)
   let carDistanceFont = UIFont.systemFont(ofSize: 14, weight: .medium)
   let carBatteryFont = UIFont.systemFont(ofSize: 14, weight: .medium)
 
@@ -64,7 +64,7 @@ class CarRentCollectionViewCell: UICollectionViewCell {
 
     verticalCarDetailsStackView.Left == carImageView.Right + 8
     verticalCarDetailsStackView.Top == carImageView.Top
-    verticalCarDetailsStackView.Bottom == carDistanceLabel.Top
+    verticalCarDetailsStackView.Bottom == carDistanceLabel.Top - 12
     verticalCarDetailsStackView.right(cornerRadius)
 
     verticalCarDetailsStackView.addArrangedSubview(carNameLabel)
@@ -105,7 +105,7 @@ class CarRentCollectionViewCell: UICollectionViewCell {
 
     carDistanceLabel.textColor = UIColor(named: "BackgroundColor")
     carDistanceLabel.backgroundColor = .clear
-    carDistanceLabel.textAlignment = .right
+    carDistanceLabel.textAlignment = .left
     carDistanceLabel.font = carDistanceFont
 
     backgroundColor = .white

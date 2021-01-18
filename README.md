@@ -2,6 +2,7 @@
 iOS app for looking up rental cars
 
 ## Current state of app
+![Image of current state of app](README_Files/app_flow.gif)
 
 ## Features
 - [x] Visualization of rental car information, fetched from the API
